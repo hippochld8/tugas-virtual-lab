@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AlgoLab | Virtual Lab Berpikir Komputasional</title>
+  <meta name="description" content="Virtual lab interaktif untuk memvisualisasikan algoritma pengurutan, pencarian jalur, dan empat pilar berpikir komputasional.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="prog" aria-hidden="true"></div>
+  <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="top">
+    <h1>AlgoLab</h1>
+    <p>Virtual lab Berpikir Komputasional. Ubah parameter, jalankan algoritma, dan lihat setiap langkahnya.</p>
+    <nav class="glass" aria-label="Navigasi lab">
+      <a href="#sorting">Pengurutan</a>
+      <a href="#jalur">Pencarian jalur</a>
+      <a href="#cari">Balapan cari</a>
+      <a href="#pilar">Empat pilar</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="sorting" class="glass" aria-labelledby="h-sort">
+      <h2 id="h-sort">Visualisasi pengurutan</h2>
+      <div class="controls">
+        <label>Algoritma
+          <select id="algo">
+            <option value="bubble">Bubble sort</option>
+            <option value="selection">Selection sort</option>
+            <option value="insertion">Insertion sort</option>
+            <option value="quick">Quick sort</option>
+            <option value="merge">Merge sort</option>
+          </select>
+        </label>
+        <label>Jumlah data: <output id="sizeOut">40</output>
+          <input type="range" id="size" min="8" max="100" value="40">
+        </label>
+        <label>Kecepatan: <output id="speedOut">50</output>
+          <input type="range" id="speed" min="1" max="100" value="50">
+        </label>
+        <label class="chk"><input type="checkbox" id="snd"> Suara nada</label>
+        <div class="btns">
+          <button id="sortRun" class="primary" type="button">Mulai</button>
+          <button id="sortShuffle" type="button">Acak data</button>
+        </div>
+      </div>
+      <div class="lab">
+        <figure>
+          <canvas id="sortCanvas" aria-label="Batang data yang sedang diurutkan"></canvas>
+          <figcaption>Batang gelap sedang dibandingkan, batang kuning sedang ditukar atau ditulis. Sebelum mulai, seret di kanvas untuk menggambar data sendiri.</figcaption>
+        </figure>
+        <aside aria-live="polite">
+          <h3 id="algoName">Bubble sort</h3>
+          <p id="algoDesc"></p>
+          <dl>
+            <dt>Kompleksitas waktu</dt><dd id="algoBig"></dd>
+            <dt>Perbandingan</dt><dd id="stC">0</dd>
+            <dt>Tukar atau tulis</dt><dd id="stW">0</dd>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section id="jalur" class="glass" aria-labelledby="h-path">
+      <h2 id="h-path">Pencarian jalur</h2>
+      <p class="hint">Klik atau seret di kisi untuk menggambar dinding. Seret titik A dan B untuk memindahkannya.</p>
+      <div class="controls">
+        <label>Algoritma
+          <select id="pAlgo">
+            <option value="bfs">BFS (jalur terpendek)</option>
+            <option value="dfs">DFS (menyelam dulu)</option>
+            <option value="astar">A* (dipandu heuristik)</option>
+          </select>
+        </label>
+        <div class="btns">
+          <button id="pRun" class="primary" type="button">Cari jalur</button>
+          <button id="pClear" type="button">Hapus jejak</button>
+          <button id="pMaze" type="button">Dinding acak</button>
+          <button id="pReset" type="button">Kosongkan</button>
+        </div>
+      </div>
+      <figure>
+        <canvas id="gridCanvas" aria-label="Kisi pencarian jalur dari titik A ke titik B"></canvas>
+        <figcaption id="pInfo" aria-live="polite">Belum ada pencarian.</figcaption>
+      </figure>
+    </section>
+
+    <section id="cari" class="glass" aria-labelledby="h-cari">
+      <h2 id="h-cari">Balapan pencarian</h2>
+      <p class="hint">Data sudah terurut. Klik sebuah kotak untuk memilih target, lalu adu pencarian linear dengan pencarian biner.</p>
+      <div class="controls">
+        <label>Jumlah data: <output id="nOut">48</output>
+          <input type="range" id="nSearch" min="10" max="120" value="48">
+        </label>
+        <div class="btns">
+          <button id="raceRun" class="primary" type="button">Mulai balapan</button>
+          <button id="raceNew" type="button">Target acak</button>
+        </div>
+      </div>
+      <figure>
+        <canvas id="raceCanvas" aria-label="Dua jalur pencarian: linear dan biner"></canvas>
+        <figcaption id="raceInfo" aria-live="polite"></figcaption>
+      </figure>
+    </section>
+
+    <section id="pilar" class="glass" aria-labelledby="h-pilar">
+      <h2 id="h-pilar">Cocokkan empat pilar</h2>
+      <p class="hint">Seret nama pilar ke situasi yang paling cocok. Di layar sentuh, ketuk pilar lalu ketuk situasinya.</p>
+      <div id="bank" class="bank" aria-label="Daftar pilar"></div>
+      <div id="zones" class="zones"></div>
+      <div class="btns">
+        <button id="qCheck" class="primary" type="button">Periksa jawaban</button>
+        <button id="qReset" type="button">Ulangi</button>
+        <output id="qScore" aria-live="polite"></output>
+      </div>
+      <details>
+        <summary>Apa itu berpikir komputasional?</summary>
+        <p>Cara menyelesaikan masalah dengan memecahnya (dekomposisi), mencari keteraturan (pengenalan pola), menyaring hal penting (abstraksi), lalu menyusun langkah yang jelas (algoritma).</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <p>AlgoLab:Tugas Virtual Lab. Irghi Satya Priangga 18224041</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
